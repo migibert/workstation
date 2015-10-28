@@ -1,0 +1,44 @@
+- hosts: all
+  sudo: yes
+  roles:
+  - { role: innohub-ansible.ruby-install }
+  - { role: malk.java8-oracle }
+  - { role: thydel.vagrant, vagrant_baseurl: "https://dl.bintray.com/mitchellh/vagrant", vagrant_debfile: vagrant_1.7.4_x86_64.deb, vagrant_debdir: /tmp }
+  tasks:
+  - name: install debian packages
+    apt:
+      name: "{{ item }}"
+      state: latest
+      update_cache: yes
+      force: yes
+    with_items:
+    - vim
+    - git
+    - subversion
+    - python
+    - python-pip
+    - maven
+
+  - name: install pip packages
+    pip:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+    - virtualenv
+
+  - name: install gem packages
+    gem:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+    - rake
+    - bundler
+    - cucumber
+    - rubocop
+
+#  - name: install atom
+#    apt: 
+#      deb: "{{ item }}"
+#    with_items:
+#    - https://github.com/atom/atom/releases/download/v1.0.19/atom-amd64.deb
+#    - https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
