@@ -19,6 +19,7 @@
     - subversion
     - python-dev
     - python-pip
+    - python3-dev
     - ruby-dev
     - rubygems
     - rbenv
