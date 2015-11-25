@@ -1,11 +1,5 @@
 - hosts: all
   sudo: yes
-  roles:
-  - { role: malk.java8-oracle }
-  - { role: thydel.vagrant, vagrant_baseurl: "https://dl.bintray.com/mitchellh/vagrant", vagrant_debfile: vagrant_1.7.4_x86_64.deb, vagrant_debdir: /tmp }
-  - { role: migibert.terraform, terraform_version: 0.6.6 }
-  - { role: angstwad.docker_ubuntu }
-
   tasks:
   - name: install debian packages
     apt:
@@ -83,3 +77,31 @@
     - { src: /tmp/idea-15.0.1.tar.gz, dest: /opt/intellij }
     - { src: /tmp/pycharm-5.0.1.tar.gz, dest: /opt/pycharm }
     tags: ide
+
+  - name: create development directory
+    file:
+      path: "{{ item }}"
+      state: directory
+      owner: "{{ dev_user }}"
+      group: "{{ dev_user }}"
+      recurse: yes
+    with_items:
+    - /home/{{dev_user}}/Documents/projects
+    - /home/{{dev_user}}/Documents/projects/go
+    - /home/{{dev_user}}/Documents/projects/github
+
+- hosts: all
+  sudo: yes
+  roles:
+  - { role: malk.java8-oracle }
+  - { role: thydel.vagrant, vagrant_baseurl: "https://dl.bintray.com/mitchellh/vagrant", vagrant_debfile: vagrant_1.7.4_x86_64.deb, vagrant_debdir: /tmp }
+  - { role: migibert.terraform, terraform_version: 0.6.6 }
+  - { role: angstwad.docker_ubuntu }
+  - { role: playlist.go, go_version: 1.5.1, go_path: "/home/{{dev_user}}/Documents/projects/go", go_tarball_checksum: 2593132ca490b9ee17509d65ee2cd078441ff544899f6afb97a03d08c25524e7 }
+  tasks:
+  - name: let dev_user be go path owner
+    file:
+      path: "/home/{{ dev_user }}/Documents/projects/go"
+      owner: "{{ dev_user }}"
+      group: "{{ dev_user }}"
+      recurse: yes
