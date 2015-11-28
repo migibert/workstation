@@ -8,6 +8,9 @@
       update_cache: yes
       force: yes
     with_items:
+    - automake
+    - autoconf
+    - libssl-dev
     - vim
     - git
     - subversion
