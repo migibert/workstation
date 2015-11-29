@@ -24,6 +24,8 @@
     - mongodb-clients
     - mysql-client
     - terminator
+    - pidgin
+    - konversation
 
   - name: install pip packages
     pip:
