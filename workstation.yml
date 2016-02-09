@@ -51,7 +51,7 @@
       dest: "{{ item.dest }}"
     with_items:
     - { url: 'https://github.com/atom/atom/releases/download/v1.0.19/atom-amd64.deb', dest: "/home/{{ dev_user }}/Documents/tools/atom-1.0.19.deb" }
-    - { url: 'http://robomongo.org/files/linux/robomongo-0.8.5-x86_64.deb', dest: "/home/{{ dev_user }}/Documents/tools/robomongo-0.8.5.deb" }
+    - { url: 'https://download.robomongo.org/0.8.5/linux/robomongo-0.8.5-x86_64.deb', dest: "/home/{{ dev_user }}/Documents/tools/robomongo-0.8.5.deb" }
     - { url: 'https://download.jetbrains.com/idea/ideaIC-15.0.1.tar.gz', dest: "/home/{{ dev_user }}/Documents/tools/idea-15.0.1.tar.gz" }
     - { url: 'https://download.jetbrains.com/python/pycharm-community-5.0.1.tar.gz', dest: "/home/{{ dev_user }}/Documents/tools/pycharm-5.0.1.tar.gz" }
     tags: ide
@@ -99,7 +99,7 @@
   sudo: yes
   roles:
   - { role: malk.java8-oracle }
-  - { role: thydel.vagrant, vagrant_baseurl: "https://dl.bintray.com/mitchellh/vagrant", vagrant_debfile: vagrant_1.7.4_x86_64.deb, vagrant_debdir: "/home/{{ dev_user }}/Documents/tools" }
+  - { role: thydel.vagrant, vagrant_baseurl: "https://releases.hashicorp.com/vagrant/1.8.1", vagrant_debfile: vagrant_1.8.1_x86_64.deb, vagrant_debdir: "/home/{{ dev_user }}/Documents/tools" }
   - { role: migibert.terraform, terraform_version: 0.6.7 }
   - { role: angstwad.docker_ubuntu }
   - { role: playlist.go, go_version: 1.5.1, go_path: "/home/{{dev_user}}/Documents/projects/go", go_tarball_checksum: 2593132ca490b9ee17509d65ee2cd078441ff544899f6afb97a03d08c25524e7 }
